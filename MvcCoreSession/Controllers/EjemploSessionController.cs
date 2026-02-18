@@ -9,12 +9,15 @@ namespace MvcCoreSession.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Session.Get("MASCOTA") != null) { 
             Mascota infomascota =(Mascota) TempData["MASCOTA"];
             //Console.Write(infomascota);
             byte[] data = HttpContext.Session.Get("MASCOTA");
             //CONVERTIMOS A BYTES A OBJECT
             Mascota mascota = (Mascota)HelperBinarySession.ByteToObject(data);
             return View(mascota);
+            }
+            return View();
         }
 
 
@@ -72,7 +75,7 @@ namespace MvcCoreSession.Controllers
 
                     //PARA REPRESENTARLO DE FORMA VISUAL LO ENVIAMOS A VIEWDATA
                     TempData["MASCOTA"] = mascota;
-                    return RedirectToAction("Index");
+                    //return RedirectToAction("Index");
 
                 }
             }
