@@ -1,0 +1,55 @@
+﻿@model List<Mascota>
+
+@{
+    ViewData["Title"] = "SessionMascotasColectionBytes";
+}
+
+<h1>COLECCION DE MASCOTAS</h1>
+
+<p>
+    <a asp-area="" asp-controller="EjemploSession" asp-action="SessionMascotasColectionBytes" asp-route-accion="almacenar">ALMACENAR</a>
+</p>
+<p>
+    <a asp-area="" asp-controller="EjemploSession" asp-action="SessionMascotasColectionBytes" asp-route-accion="mostrar">MOSTRAR</a>
+</p>
+<h2>@ViewData["MENSAJE"]</h2>
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Raza
+                </th>
+                <th>
+                    Edad
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Nombre
+                    </td>
+                    <td>
+                        @item.Raza
+                    </td>
+                    <td>
+                        @item.Edad
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

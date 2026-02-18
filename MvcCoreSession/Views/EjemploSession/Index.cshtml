@@ -1,0 +1,36 @@
+﻿@model Mascota
+<h1>EJEMPLOS Session</h1>
+
+<h2 style="color:blue">
+    NOMBRE Session: @Context.Session.GetString("nombre")
+</h2>
+
+<h2 style="color:green">
+    HORA Session: @Context.Session.GetString("hora")
+</h2>
+
+
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="EjemploSession" asp-action="SessionSimple">SESSION SIMPLE</a>
+    </li>
+    <li class="list-group-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="EjemploSession" asp-action="SessionMascotaBytes">SESSION MASCOTA</a>
+    </li>
+
+    <li class="list-group-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="EjemploSession" asp-action="SessionMascotasColectionBytes">SESSION MASCOTAS COLECTION</a>
+    </li>
+</ul>
+
+@if ( Model != null)
+{
+    <h2 style="color:red">NOMBRE: @Model.Nombre </h2>
+    <h2 style="color:mediumpurple"> RAZA: @Model.Raza</h2>
+    <h2 style="color:goldenrod">EDAD: @Model.Edad </h2>
+}
+else
+{
+    <h2>No se cargan los datos de mascota</h2>
+}
