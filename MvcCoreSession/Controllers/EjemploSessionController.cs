@@ -10,7 +10,11 @@ namespace MvcCoreSession.Controllers
         public IActionResult Index()
         {
             Mascota infomascota =(Mascota) TempData["MASCOTA"];
-            return View(infomascota);
+            //Console.Write(infomascota);
+            byte[] data = HttpContext.Session.Get("MASCOTA");
+            //CONVERTIMOS A BYTES A OBJECT
+            Mascota mascota = (Mascota)HelperBinarySession.ByteToObject(data);
+            return View(mascota);
         }
 
 
