@@ -4,13 +4,13 @@
     ViewData["Title"] = "SessionMascotasColectionBytes";
 }
 
-<h1>COLECCION DE MASCOTAS</h1>  
+<h1>COLECCION DE MASCOTAS</h1>
 
 <p>
-    <a asp-area="" asp-controller="EjemploSession" asp-action="SessionMascotasColectionBytes" asp-route-accion="almacenar">ALMACENAR</a>
+    <a asp-area="" asp-controller="EjemploSession" asp-action="SessionMascotasColectionGenerico" asp-route-accion="almacenar">ALMACENAR</a>
 </p>
 <p>
-    <a asp-area="" asp-controller="EjemploSession" asp-action="SessionMascotasColectionBytes" asp-route-accion="mostrar">MOSTRAR</a>
+    <a asp-area="" asp-controller="EjemploSession" asp-action="SessionMascotasColectionGenerico" asp-route-accion="mostrar">MOSTRAR</a>
 </p>
 <h2>@ViewData["MENSAJE"]</h2>
 @if (Model != null)

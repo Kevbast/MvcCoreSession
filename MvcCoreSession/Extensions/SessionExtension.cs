@@ -20,6 +20,7 @@ namespace MvcCoreSession.Extensions
             {
                 //RECUPERAMOS EL OBJETO Y LO CONVERTIMOS CON NUESTRO HELPER
                 T data = HelperJsonSession.DeserializableObject<T>(json);
+                //T data = JsonConvert.DeserializeObject<T>(json) //Se podría hacer de esta manera sin usar el helper
                 return data;
             }
 

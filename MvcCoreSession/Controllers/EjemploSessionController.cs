@@ -182,6 +182,44 @@ namespace MvcCoreSession.Controllers
             return View();
         }
 
+        //AHORA VAMOS A PROBAR CON LAS LISTAS
+        public IActionResult SessionMascotasColectionGenerico(string accion)
+        {
+            if (accion != null)
+            {
+                if (accion.ToLower() == "almacenar")
+                {
+                    //GUARDAMOS DATOS EN SESSION
+
+                    List<Mascota> mascotas = new List<Mascota>
+                    {
+                        new Mascota{Nombre="SPIKESITO",Raza="Bosque Noruego",Edad=3},
+                        new Mascota{Nombre="Kronito",Raza="Perrito",Edad=7},
+                        new Mascota{Nombre="Vacía",Raza="Periquito",Edad=2},
+                        new Mascota{Nombre="Mili",Raza="Común",Edad=1},
+                    };
+
+                    HttpContext.Session.SetObject("MASCOTASGENERIC", mascotas);
+
+                    ViewData["MENSAJE"] = "COLECCION DE MASCOTAS almacenada en session genéricamente";
+
+                }
+                else if (accion.ToLower() == "mostrar")
+                {
+                    List<Mascota> mascotas = HttpContext.Session.GetObject<List<Mascota>>("MASCOTASGENERIC");
+
+                    //PARA REPRESENTARLO DE FORMA VISUAL LO ENVIAREMOS A LA VISTA
+                    return View(mascotas);
+
+
+                }
+            }
+            return View();
+        }
+
+
+
+
 
 
 
