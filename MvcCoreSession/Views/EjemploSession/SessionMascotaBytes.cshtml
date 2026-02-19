@@ -1,7 +1,7 @@
 ﻿<h1 style="color:tomato">SESION MASCOTA BYTES</h1>
 
 @{
-    Mascota mascota = TempData["MASCOTA"] as Mascota;
+    Mascota mascota = ViewData["MASCOTA"] as Mascota;
 }
 <p>
     <a asp-area="" asp-controller="EjemploSession" asp-action="SessionMascotaBytes" asp-route-accion="almacenar">ALMACENAR</a>

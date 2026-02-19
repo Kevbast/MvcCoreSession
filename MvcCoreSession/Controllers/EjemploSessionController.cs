@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MvcCoreSession.Extensions;
 using MvcCoreSession.Helpers;
 using MvcCoreSession.Models;
 
@@ -9,14 +10,7 @@ namespace MvcCoreSession.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.Get("MASCOTA") != null) { 
-            Mascota infomascota =(Mascota) TempData["MASCOTA"];
-            //Console.Write(infomascota);
-            byte[] data = HttpContext.Session.Get("MASCOTA");
-            //CONVERTIMOS A BYTES A OBJECT
-            Mascota mascota = (Mascota)HelperBinarySession.ByteToObject(data);
-            return View(mascota);
-            }
+            
             return View();
         }
 
@@ -74,8 +68,7 @@ namespace MvcCoreSession.Controllers
                     Mascota mascota = (Mascota)HelperBinarySession.ByteToObject(data);
 
                     //PARA REPRESENTARLO DE FORMA VISUAL LO ENVIAMOS A VIEWDATA
-                    TempData["MASCOTA"] = mascota;
-                    //return RedirectToAction("Index");
+                    ViewData["MASCOTA"] = mascota;
 
                 }
             }
@@ -116,6 +109,73 @@ namespace MvcCoreSession.Controllers
                     //PARA REPRESENTARLO DE FORMA VISUAL LO ENVIAREMOS A LA VISTA
                     return View(mascotas);
 
+
+                }
+            }
+            return View();
+        }
+
+        //CREAMOS OTRO MÉTODO CON JSON
+        public IActionResult SessionMascotaJSON(string accion)
+        {
+            if (accion != null)
+            {
+                if (accion.ToLower() == "almacenar")
+                {
+                    //GUARDAMOS DATOS EN SESSION
+                    Mascota mascota = new Mascota
+                    {
+                        Nombre = "Spikesito",
+                        Raza = "AZUL RUSO",
+                        Edad = 5
+                    };
+
+                    //QUEREMOS GUARDAR EL OBJETO MASCOTA COMO STRING EN SESSION
+                    string mascotaJson = HelperJsonSession.SerializeObject<Mascota>(mascota);
+
+                    HttpContext.Session.SetString("MASCOTAJSON", mascotaJson);
+
+
+                    ViewData["MENSAJE"] = "Mascota almacenada en session";
+
+                }
+                else if (accion.ToLower() == "mostrar")
+                {
+                    string mascotaJson = HttpContext.Session.GetString("MASCOTAJSON");
+                    Mascota mascota = HelperJsonSession.DeserializableObject<Mascota>(mascotaJson);
+
+                    ViewData["MASCOTA"] = mascota;
+
+                }
+            }
+            return View();
+        }
+
+        //CONTROLADOR GENERICO
+        public IActionResult SessionMascotaGenerico(string accion)
+        {
+            if (accion != null)
+            {
+                if (accion.ToLower() == "almacenar")
+                {
+                    //GUARDAMOS DATOS EN SESSION
+                    Mascota mascota = new Mascota
+                    {
+                        Nombre = "Simbita",
+                        Raza = "Bosque Noruego",
+                        Edad = 2
+                    };
+
+                    HttpContext.Session.SetObject("MASCOTAGENERIC",mascota);
+
+                    ViewData["MENSAJE"] = "Mascota almacenada en session";
+
+                }
+                else if (accion.ToLower() == "mostrar")
+                {
+                    Mascota mascota = HttpContext.Session.GetObject<Mascota>("MASCOTAGENERIC");
+
+                    ViewData["MASCOTAGENERIC"] = mascota;
 
                 }
             }

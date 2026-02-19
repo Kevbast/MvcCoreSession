@@ -1,4 +1,6 @@
 ﻿@model Mascota
+@using MvcCoreSession.Helpers
+@using MvcCoreSession.Extensions
 <h1>EJEMPLOS Session</h1>
 
 <h2 style="color:blue">
@@ -8,6 +10,7 @@
 <h2 style="color:green">
     HORA Session: @Context.Session.GetString("hora")
 </h2>
+@* vamos a dibujar con el helper de json la mascota*@
 
 
 
@@ -18,17 +21,34 @@
     <li class="list-group-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="EjemploSession" asp-action="SessionMascotaBytes">SESSION MASCOTA</a>
     </li>
+    <li class="list-group-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="EjemploSession" asp-action="SessionMascotaJSON">SESSION MASCOTA JSON</a>
+    </li>
+    <li class="list-group-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="EjemploSession" asp-action="SessionMascotaGenerico">SESSION MASCOTA GENÉRICA</a>
+    </li>
 
     <li class="list-group-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="EjemploSession" asp-action="SessionMascotasColectionBytes">SESSION MASCOTAS COLECTION</a>
     </li>
 </ul>
 
-@if ( Model != null)
+
+
+
+@{
+    Mascota mascota = null;
+    if (Context.Session.Get("MASCOTAGENERIC") != null)
+    {//AHORA VEMOS QUE FUNCIONA COMO UNA EXTENSIÓN,ES MÁS EFICIENTE
+        mascota = Context.Session.GetObject<Mascota>("MASCOTAGENERIC");
+    }
+}
+
+@if (mascota != null)
 {
-    <h2 style="color:red">NOMBRE: @Model.Nombre </h2>
-    <h2 style="color:mediumpurple"> RAZA: @Model.Raza</h2>
-    <h2 style="color:goldenrod">EDAD: @Model.Edad </h2>
+    <h2 style="color:red">NOMBRE: @mascota.Nombre</h2>
+    <h2 style="color:mediumpurple"> RAZA: @mascota.Raza</h2>
+    <h2 style="color:goldenrod">EDAD: @mascota.Edad </h2>
 }
 else
 {
