@@ -1,7 +1,13 @@
+using MvcCoreSession.Helpers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//REALIZAMOS ESTA INYECCIÓN PARA EL CONTEXT ANCESSOR
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+//e INYECTAMOS LA CLASE QUE HEMOS CREADO
+builder.Services.AddSingleton<HelperSessionContextAccessor>();
 
 //MEMORIA DISTRUBUIDA ARA QUE SESSION FUNCIONE
 builder.Services.AddDistributedMemoryCache();
